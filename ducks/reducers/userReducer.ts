@@ -1,18 +1,12 @@
+import { User } from "../../types";
 import { SAVE_SESSION, DESTROY_SESSION } from "../actionTypes";
 
 const initialState = {};
 
-export const saveSession = (companyId: string, email: string, id: string, loggedIn: boolean, name: string, avatar: string | null) => {
+export const saveSession = (user: User) => {
 	return {
 		type: SAVE_SESSION,
-		payload: {
-			companyId: companyId,
-			email: email,
-			userId: id,
-			loggedIn: loggedIn,
-			name: name,
-			avatar: avatar
-		},
+		payload: user,
 	};
 };
 export const destroySession = () => {
@@ -29,7 +23,6 @@ export default function (state = initialState, action: any) {
 			return { ...state, user: payload };
 		case `${DESTROY_SESSION}`:
 			return { ...state, user: payload };
-
 		default:
 			return state;
 	}

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { CleanProperty } from '../types';
+// const URL = "https://propert-api.com";
 const URL = "http://localhost:4068";
 
 
@@ -38,7 +39,6 @@ export const postForm = (
     beforeImages: any,
     afterImages: any
 ) => {
-    console.log('hello')
     axios.post(`${URL}/api/company/post`, {
         beforeImages,
         companyId: property.companyId,
@@ -53,7 +53,7 @@ export const postForm = (
 }
 
 export const fetchProperties = async (userId: string | number) => {
-    const res = await axios.get(`${URL}/api/company/properties`)
+    const res = await axios.get(`${URL}/api/company/properties?userId=${userId}`)
     return res.data
 }
 
@@ -66,3 +66,21 @@ export const fetchUsers = async () => {
     const res = await axios.get(`${URL}/api/companies/users`)
     return res.data
 };
+
+export const fetchPostsByProperty = async (propertyId: string) => {
+    const res = await axios.get(`${URL}/api/company/property/${propertyId}`)
+    return res.data
+
+}
+
+export const loginUser = async (email: string, password: string) => {
+    console.log(email)
+    console.log(URL)
+    let res = await axios.post(`${URL}/api/login`, { email: email, password: password })
+    console.log(res.data)
+    return res.data
+}
+export const registerUser = async (email: string, password: string, firstName: string, lastName: string) => {
+    let res = await axios.post(`${URL}/api/signup`, { email: email, password: password, firstName: firstName, lastName: lastName })
+    return res.data
+}

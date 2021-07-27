@@ -11,6 +11,8 @@ const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 4);
 interface IProps {
   data: any;
   readOnly?: boolean;
+  deleteImage?: any;
+  typeOfImage?: 'before' | 'after'
 }
 
 const Carousel = (props: IProps) => {
@@ -18,8 +20,10 @@ const Carousel = (props: IProps) => {
     <CarouselImport
       data={props.data}
       renderItem={({ item }) => <CarouselImage
+        onClose={props.deleteImage}
         readOnly={props.readOnly}
         item={item}
+        typeOfImage={props.typeOfImage}
       />}
       sliderWidth={SLIDER_WIDTH}
       itemWidth={ITEM_WIDTH}

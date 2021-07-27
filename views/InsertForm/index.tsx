@@ -31,11 +31,7 @@ const InsertForm = (props: IProps) => {
 
   const getProperties = async () => {
     let unCleanProperties = await fetchProperties(1)
-
-
-    console.log(unCleanProperties)
     setProperties(cleanPropertyData(unCleanProperties))
-    console.log(properties)
   }
 
   const addImages = (type: 'before' | 'after') => {
@@ -63,7 +59,19 @@ const InsertForm = (props: IProps) => {
       );
     }
   };
-  const deleteImage = () => { };
+  const deleteImage = (imageType: 'before' | 'after', imageInfo: any) => {
+    let images = []
+    if (imageType === 'before') {
+      images = beforeImages.filter((ele: any) => ele.uri !== imageInfo.uri)
+      setBeforeImages(images)
+    }
+    if (imageType === 'after') {
+      images = afterImages.filter((ele: any) => ele.uri !== imageInfo.uri)
+      setAfterImages(images)
+    }
+
+
+  };
 
   const setSearchedProperties = () => {
     const filteredProperties = [];
@@ -88,11 +96,19 @@ const InsertForm = (props: IProps) => {
   };
 
   const submitForm = () => {
+    //@ts-ignore
     postForm(title, summary, selectedProperty, beforeImages, afterImages)
   }
 
-  let display = () => {
+  const buttonDisabled = () => {
+    if (title && summary && selectedProperty) {
+      return true
+    } else {
+      return false
+    }
+  }
 
+  let display = () => {
     return (
       <View style={{ paddingLeft: 30, paddingTop: 80, paddingRight: 30, paddingBottom: 30 }}>
         <SelectedInput
@@ -120,7 +136,7 @@ const InsertForm = (props: IProps) => {
 
         <View style={styles.imageContainer}>
           <BrightText style={styles.textStyle}>Before:</BrightText>
-          <Carousel data={beforeImages} />
+          <Carousel typeOfImage={'before'} data={beforeImages} deleteImage={deleteImage} />
           {beforeImages.length >= 4 ? null : (
             <IconButton
               onPress={() => addImages('before')}
@@ -133,7 +149,7 @@ const InsertForm = (props: IProps) => {
         </View>
         <View style={styles.imageContainer}>
           <BrightText style={styles.textStyle}>After:</BrightText>
-          <Carousel data={afterImages} />
+          <Carousel typeOfImage={'after'} data={afterImages} />
           {afterImages.length >= 4 ? null : (
             <IconButton
               onPress={() => addImages('after')}
@@ -149,7 +165,7 @@ const InsertForm = (props: IProps) => {
           loading={false}
           onPress={() => submitForm()}
           text="Submit"
-          disabled={false}
+          disabled={!buttonDisabled()}
           buttonStyles={{ height: 50, marginTop: 50 }}
         />
       </View>

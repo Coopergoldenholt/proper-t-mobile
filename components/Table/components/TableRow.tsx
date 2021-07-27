@@ -6,12 +6,16 @@ import { BrightText } from '../../../styles';
 interface IProps {
   lastItem: boolean;
   text: string;
+  onPress?: any;
+  data: any;
 }
 
 const TableRow = (props: IProps) => {
   return (
     <TouchableOpacity
-      style={props.lastItem ? styles.lastContainer : styles.container}>
+      style={props.lastItem ? styles.lastContainer : styles.container}
+      onPress={() => props.onPress(props.data)}
+    >
       <BrightText>{props.text}</BrightText>
     </TouchableOpacity>
   );

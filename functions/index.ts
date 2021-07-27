@@ -10,12 +10,12 @@ export const filterPropertyData = (properties: any) => {
     for (let property of properties) {
         let check = dataCheck(filteredData, property.managed_company_name)
         if (typeof (check) === 'number') {
-            let propertyNameObj = { text: property.property_name }
+            let propertyNameObj = { text: property.property_name, data: property }
             filteredData[check].data.push(propertyNameObj)
         } else {
             let newObj = {
                 title: property.managed_company_name,
-                data: [{ text: property.property_name }]
+                data: [{ text: property.property_name, data: property }]
             }
             filteredData.push(newObj)
         }
@@ -34,12 +34,12 @@ export const filterUserData = (users: any) => {
         let check = dataCheck(filteredData, user.managing_company_name)
 
         if (typeof (check) === 'number') {
-            let userNameObj = { text: user.email }
+            let userNameObj = { text: user.email, data: user }
             filteredData[check].data.push(userNameObj)
         } else {
             let newObj = {
                 title: user.managing_company_name,
-                data: [{ text: user.first_name ? `${user.first_name} ${user.last_name}` : user.email }]
+                data: [{ text: user.first_name ? `${user.first_name} ${user.last_name}` : user.email, data: user }]
             }
             filteredData.push(newObj)
         }

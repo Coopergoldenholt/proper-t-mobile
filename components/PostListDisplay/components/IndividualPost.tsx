@@ -11,7 +11,7 @@ interface IProps {
 
 const PostDisplay = (props: IProps) => {
   const item = props.item;
-
+  console.log(item)
   let date = moment(item.date).format('MMMM Do YYYY, h:mm a');
   return (
     <View style={styles.item}>

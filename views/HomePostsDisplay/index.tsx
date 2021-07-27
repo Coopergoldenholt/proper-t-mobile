@@ -13,7 +13,6 @@ const wait = (timeout: number) => {
 const HomePostDisplay = () => {
   const [posts, setPosts] = useState([])
   const [refreshing, setRefreshing] = useState(false);
-  const [isLoading, setLoading] = useState(false);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -26,11 +25,10 @@ const HomePostDisplay = () => {
   }, []);
 
   const getPosts = async () => {
-    setLoading(true);
     setPosts(await fetchPosts(1))
   };
-  console.log(posts)
+
   return <PostListDisplay posts={posts} onRefresh={onRefresh} refreshing={refreshing} />
 }
 
-export default HomePostDisplay
+export default HomePostDisplay;

@@ -3,15 +3,16 @@ import { SectionList, RefreshControl } from 'react-native'
 
 import TableRow from './components/TableRow'
 import Header from './components/Header'
+import PropertyDisplayStack from '../../routes/Tabs/components/PropertyDisplayStack'
 
 interface IProps {
     data: any;
     refreshing: boolean;
     onRefresh: any;
+    onPress?: any;
 }
 
 const Table = (props: IProps) => {
-    console.log(props.data)
 
     return <SectionList
         refreshControl={
@@ -22,8 +23,10 @@ const Table = (props: IProps) => {
         keyExtractor={(item, index) => item + index}
         renderItem={({ item, index, section }) => (
             <TableRow
+                onPress={props.onPress}
                 text={item.text}
                 lastItem={section.data.length === index + 1 ? true : false}
+                data={item.data}
             />
         )}
         renderSectionHeader={({ section: { title } }) => (

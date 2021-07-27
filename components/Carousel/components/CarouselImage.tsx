@@ -12,15 +12,15 @@ interface IProps {
   imageType?: 'before' | 'after';
   onClose?: any;
   readOnly?: boolean;
+  typeOfImage?: 'before' | 'after';
 }
 
 const CarouselImage = (props: IProps) => {
-  // console.log(item);
   return (
     <View>
       {props.readOnly ? null :
         <IconButton
-          onPress={() => props.onClose(props.imageType, props.item)}
+          onPress={() => props.onClose(props.typeOfImage, props.item)}
           containerStyles={{ position: 'absolute', zIndex: 2, right: 5 }}
           iconType="close"
           size={35}

@@ -65,4 +65,15 @@ export interface IManagedCompanySearch {
   name: string;
 }
 
+export interface User {
+  email: string;
+  firstName: string;
+  lastName: string;
+  loggedIn: boolean;
+  companyId: string;
+  userType: string;
+  id: string;
+  managedCompanyId: string;
+}
+
 
